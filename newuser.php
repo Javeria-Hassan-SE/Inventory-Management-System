@@ -40,7 +40,6 @@
         <?php
         include("header.php");
         include("sidebar.php");
-        adduser();
         ?>
 
 
@@ -52,6 +51,7 @@
                         <h4>User Management</h4>
                         <h6>Add/Update User</h6>
                     </div>
+                    <?php  adduser();?>
                 </div>
 
                 <div class="card">
