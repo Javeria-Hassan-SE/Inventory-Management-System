@@ -1,39 +1,4 @@
-<?php include "database/db.php"; ?>
-<?php
-if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $contact = $_POST['contact'];
-    $cnic = $_POST['cnic'];
-    $role=$_POST['role'];
-    $password = $_POST['password'];
-    $emp_id=$_POST['emp_id'];
-    $qualification = $_POST['qualification'];
-
-    $user_added_on = date('d-m-y');
-    
-
-    $image = $_FILES['image']['name'];
-    $image_temp = $_FILES['image']['tmp_name'];
-
-    move_uploaded_file($image_temp, "images/" . $image);
-
-    $insertQuery = "INSERT INTO `users`(`emp_id`,`fullname`, `cnic`, `email`, `password`, `contact`, `img`, `qualification`,
-     `usertype`,`added_on`
-    ) VALUES
-      ('{$emp_id}','{$username}','{$cnic}','{$email}','{$password}','{$contact}','{$image}','{$qualification}',
-      '{$role}','{$user_added_on}')";
-
-    $query = mysqli_query($connection, $insertQuery);
-    if ($query) {
-        header("Location: userlists.php");
-    } else {
-        die("Failed to add User at the moment" . mysqli_error($connection));
-    }
-}
-
-?>
-
+<?php include "includes/functions.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,6 +40,7 @@ if (isset($_POST['submit'])) {
         <?php
         include("header.php");
         include("sidebar.php");
+        adduser();
         ?>
 
 

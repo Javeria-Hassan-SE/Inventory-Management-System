@@ -1,18 +1,5 @@
-﻿<?php include "database/db.php"; ?>
-<?php
-if (isset($_GET['delete'])) {
-    $delete_id = $_GET['delete'];
-    $deleteQuery = "DELETE FROM users where user_id = ('{$delete_id}')";
-    $deleteSQL = mysqli_query($connection, $deleteQuery);
-    if (!$deleteSQL) {
-        die("QUERY FAILED" . mysqli_error($connection));
-    } else {
-        //    header("Location:view_posts.php");
-    }
-}
-
-
-?>
+﻿<?php include "includes/functions.php"; ?>
+<?php deleteUser();?>
 
 
 <!DOCTYPE html>

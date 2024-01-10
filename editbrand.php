@@ -7,9 +7,7 @@ while ($row = mysqli_fetch_assoc($select_all_users_query)) {
     $brand_name = $row['brand_name'];
     $sub_cat = $row['sub_cat_name'];
 }
-}
-?>
-
+}?>
 <!DOCTYPE html>
 <html lang="en">
 

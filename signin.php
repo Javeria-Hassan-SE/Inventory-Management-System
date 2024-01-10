@@ -1,5 +1,4 @@
-<?php
-include "database/db.php";
+<?php include "database/db.php";
 $passError=false;
 $emailError = false;
 session_start();
@@ -7,21 +6,21 @@ ob_start();
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $query = "Select user_id,emp_id,full_name from users where email = '$email' AND password = '$password' ";
+    $query = "Select user_id,emp_id,full_name,user_type from users where email = '$email' AND password = '$password' ";
     $result = mysqli_query($connection, $query);
     if (mysqli_num_rows($result) == 1) {
         while ($row = mysqli_fetch_assoc($result)) {
             $name = $row['full_name'];
             $emp_id=$row['emp_id'];
-            header("Location:index.php?uid=$emp_id&fullname=$name");
+            $user_type=$row['user_type'];
+            header("Location:index.php?uid=$emp_id&fullname=$name&usertype=$user_type");
             exit();
         }
     } else {
         echo 'Unuccessfull Login'; 
     }
 
-}
-?>
+}?>
 
 <!DOCTYPE html>
 <html lang="en">

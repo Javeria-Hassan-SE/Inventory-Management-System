@@ -1,5 +1,4 @@
-<?php include "database/db.php"; ?>
-<?php
+<?php include "database/db.php";
 if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
     $deleteQuery = "DELETE FROM assets where asset_id = ('{$delete_id}')";
@@ -9,10 +8,7 @@ if (isset($_GET['delete'])) {
     } else {
 
     }
-}
-
-
-?>
+}?>
 
 <!DOCTYPE html>
 <html lang="en">

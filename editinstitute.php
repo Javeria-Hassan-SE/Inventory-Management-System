@@ -8,9 +8,7 @@ while ($row = mysqli_fetch_assoc($select_all_users_query)) {
     $campus_code = $row['campus_code'];
     $dept_code = $row['dept_code'];
 }
-}
-?>
-
+}?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,11 +1,11 @@
-<?php include "database/db.php"; ?>
+<?php include "includes/functions.php";
+include "database/db.php"; ?>
 
 <?php
-if(isset($_GET['update'])){
+  if(isset($_GET['update'])){
     $user_id = $_GET['update'];
     $query = "SELECT * FROM users where user_id = '{$user_id}'";
                 $select_all_users_query = mysqli_query($connection, $query);
-
                 while($row = mysqli_fetch_assoc($select_all_users_query)) {
                     $u_emp_id = $row['emp_id'];
                     $u_qualification = $row['qualification'];
@@ -17,40 +17,7 @@ if(isset($_GET['update'])){
                    $u_img=$row['img'];
                    $u_usertype=$row['usertype'];
                 }
-}
-if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $contact = $_POST['contact'];
-    $cnic = $_POST['cnic'];
-    $role=$_POST['role'];
-    $password = $_POST['password'];
-    $emp_id=$_POST['emp_id'];
-    $qualification = $_POST['qualification'];
-
-    $user_updated = date('d-m-y');
-    
-
-    $image = $_FILES['image']['name'];
-    $image_temp = $_FILES['image']['tmp_name'];
-
-    move_uploaded_file($image_temp, "images/" . $image);
-
-    $insertQuery = "UPDATE `users` SET `emp_id`='{$emp_id}',`fullname`='{$username}',
-    `cnic`='{$cnic}',
-    `email`='{$email}',`password`='{$password}',`contact`='{$contact}',
-    `qualification`='{$qualification}',`img`='{$image}',`usertype`='{$role}',`updated_on`='{$user_updated}'
-     WHERE user_id='{$user_id}'";
-
-    $query = mysqli_query($connection, $insertQuery);
-    if ($query) {
-        header("Location: userlists.php");
-    } else {
-        die("Failed to add User at the moment" . mysqli_error($connection));
-    }
-}
-
-?>
+}?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,6 +60,7 @@ if (isset($_POST['submit'])) {
         <?php
         include("header.php");
         include("sidebar.php");
+        updateUser();
         ?>
 
 
@@ -110,6 +78,7 @@ if (isset($_POST['submit'])) {
                     <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
                         <div class="row">
+                            <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                             <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                     <label>Employee ID</label>

@@ -1,7 +1,5 @@
-<?php
-include "database/db.php";
-
-if (isset($_POST['category'])) {
+<?php include "database/db.php";?>
+<?php if (isset($_POST['category'])) {
     $selectedCategory = $_POST['category'];
     $query = "SELECT cat_name FROM sub_category WHERE sub_cat_name = '{$selectedCategory}'";
     $select_all_users_query = mysqli_query($connection, $query);
@@ -9,6 +7,83 @@ if (isset($_POST['category'])) {
     while ($row = mysqli_fetch_assoc($select_all_users_query)) {
         $cat_name  = $row['cat_name'];
         echo "<option value='$cat_name'>$cat_name</option>";
+    }
+}
+function adduser(){
+    global $connection;
+    if (isset($_POST['submit'])) {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $contact = $_POST['contact'];
+        $cnic = $_POST['cnic'];
+        $role=$_POST['role'];
+        $password = $_POST['password'];
+        $emp_id=$_POST['emp_id'];
+        $qualification = $_POST['qualification'];
+    
+        $user_added_on = date('d-m-y');
+        
+    
+        $image = $_FILES['image']['name'];
+        $image_temp = $_FILES['image']['tmp_name'];
+    
+        move_uploaded_file($image_temp, "images/" . $image);
+    
+        $insertQuery = "INSERT INTO `users`(`emp_id`,`fullname`, `cnic`, `email`, `password`, `contact`, `img`, `qualification`,
+         `usertype`,`added_on`
+        ) VALUES
+          ('{$emp_id}','{$username}','{$cnic}','{$email}','{$password}','{$contact}','{$image}','{$qualification}',
+          '{$role}','{$user_added_on}')";
+    
+        $query = mysqli_query($connection, $insertQuery);
+        if ($query) {
+            header("Location: userlists.php");
+        } else {
+            die("Failed to add User at the moment" . mysqli_error($connection));
+        }
+    }
+}
+function addLabList(){
+    if (isset($_POST['submit'])) {
+        global $connection;
+        $module = $_POST['module'];
+        $floor = $_POST['floor'];
+        $type = $_POST['type'];
+        $capacity = $_POST['capacity'];
+        $lab_name=$_POST['lab_name'];
+    
+        $added_on = date('d-m-y');
+        $added_by = 1;
+        $module_code="";
+        if($module=="Module 01"){
+            $module_code='MD01';
+        }else if($module=="Module 02"){
+            $module_code='MD02';
+        }else if($module=="Module 03"){
+            $module_code='MD03';
+        }else if($module=="Module 04"){
+            $module_code='MD04';
+        }
+        
+    
+        $insertQuery = "INSERT INTO `labs`(`module_code`,`module_name`, `floor`, `lab_type`, `lab_name`,
+         `capacity`, `added_by`, `added_on`)
+         VALUES ('{$module_code}','{$module}','{$floor}','{$type}','{$lab_name}','{$capacity}',
+         '{$added_by}','{$added_on}')";
+    
+        $query = mysqli_query($connection, $insertQuery);
+        if ($query) {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Added Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        } else {
+            // die("Failed to add lab at the moment" . mysqli_error($connection));
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to add at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
     }
 }
 function insertBrand(){
@@ -24,9 +99,15 @@ function insertBrand(){
 
         $query = mysqli_query($connection, $insertQuery);
         if ($query) {
-            header("Location: brand.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Inserted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
-            die("Failed to add at the moment" . mysqli_error($connection));
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to add at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         }
     }
 }
@@ -61,9 +142,15 @@ function addAsset(){
 
         $query = mysqli_query($connection, $insertQuery);
         if ($query) {
-            header("Location: inventorylist.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Inserted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
-            die("Failed to add at the moment" . mysqli_error($connection));
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to add at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         }
     }
 
@@ -82,9 +169,15 @@ function insertInstitute(){
 
         $query = mysqli_query($connection, $insertQuery);
         if ($query) {
-            header("Location: institute.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Inserted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
-            die("Failed to add at the moment" . mysqli_error($connection));
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to add at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         }
     }
 }
@@ -105,9 +198,61 @@ function insertCategory()
 
         $query = mysqli_query($connection, $insertQuery);
         if ($query) {
-            header("Location: addcategory.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Inserted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
-            die("Failed to add at the moment" . mysqli_error($connection));
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to add at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
+    }
+}
+
+function updateLab(){
+    if (isset($_POST['submit'])) {
+        global $connection;
+        $lab_id = $_POST['lab_id'];
+        $u_module = $_POST['module'];
+        $u_floor = $_POST['floor'];
+        $u_type = $_POST['type'];
+        $u_capacity = $_POST['capacity'];
+        $u_lab_name=$_POST['lab_name'];
+    
+        $updated_on = date('d-m-y');
+        $updated_by = 1;
+    
+        $module_code="";
+        if($u_module=="Module 01"){
+            $module_code='MD01';
+        }else if($u_module=="Module 02"){
+            $module_code='MD02';
+        }else if($u_module=="Module 03"){
+            $module_code='MD03';
+        }else if($u_module=="Module 04"){
+            $module_code='MD04';
+        }
+    
+    
+    
+        $insertQuery = "UPDATE `labs` SET `module_code`='{$module_code}',`module_name`='{$u_module}',`floor`='{$u_floor}',`lab_type`='{$u_type}',
+        `lab_name`='{$u_lab_name}',`capacity`='{$u_capacity}',
+        `updated_by`='{$updated_by}',`updated_on`='{$updated_on}' WHERE `lab_id`= {$lab_id}";
+    
+        $query = mysqli_query($connection, $insertQuery);
+        if ($query) {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Updated Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        } else {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to add at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+            die("Failed to update at the moment" . mysqli_error($connection));
         }
     }
 }
@@ -145,8 +290,15 @@ function updateAsset(){
 
         $query = mysqli_query($connection, $insertQuery);
         if ($query) {
-            header("Location: inventorylist.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Updated Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to update at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("Failed to update at the moment" . mysqli_error($connection));
         }
     }
@@ -167,8 +319,15 @@ function updateBrand(){
 
         $query = mysqli_query($connection, $updateQuery);
         if ($query) {
-            header("Location: brand.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Updated Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to update at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("Failed to update at the moment" . mysqli_error($connection));
         }
     }
@@ -190,12 +349,54 @@ function updateInstitute(){
 
         $query = mysqli_query($connection, $updateQuery);
         if ($query) {
-            header("Location: institute.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Updated Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to update at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("Failed to update at the moment" . mysqli_error($connection));
         }
     }
 
+}
+function updateUser(){
+    global $connection;
+    if (isset($_POST['submit'])) {
+        $user_id = $_POST['user_id'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $contact = $_POST['contact'];
+        $cnic = $_POST['cnic'];
+        $role=$_POST['role'];
+        $password = $_POST['password'];
+        $emp_id=$_POST['emp_id'];
+        $qualification = $_POST['qualification'];
+    
+        $user_updated = date('d-m-y');
+        
+    
+        $image = $_FILES['image']['name'];
+        $image_temp = $_FILES['image']['tmp_name'];
+    
+        move_uploaded_file($image_temp, "images/" . $image);
+    
+        $insertQuery = "UPDATE `users` SET `emp_id`='{$emp_id}',`fullname`='{$username}',
+        `cnic`='{$cnic}',
+        `email`='{$email}',`password`='{$password}',`contact`='{$contact}',
+        `qualification`='{$qualification}',`img`='{$image}',`usertype`='{$role}',`updated_on`='{$user_updated}'
+         WHERE user_id='{$user_id}'";
+    
+        $query = mysqli_query($connection, $insertQuery);
+        if ($query) {
+            header("Location: userlists.php");
+        } else {
+            die("Failed to add User at the moment" . mysqli_error($connection));
+        }
+    }
 }
 function updateCategory()
 {
@@ -213,8 +414,15 @@ function updateCategory()
 
         $query = mysqli_query($connection, $updateQuery);
         if ($query) {
-            header("Location: addcategory.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Updated Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to update at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("Failed to update at the moment" . mysqli_error($connection));
         }
     }
@@ -236,8 +444,15 @@ function updateSubCategory()
 
         $query = mysqli_query($connection, $updateQuery);
         if ($query) {
-            header("Location: ./subaddcategory.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Updated Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to update at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("Failed to update at the moment" . mysqli_error($connection));
         }
     }
@@ -259,8 +474,15 @@ function insertSubCategory()
 
         $query = mysqli_query($connection, $insertQuery);
         if ($query) {
-            header("Location: ./subaddcategory.php");
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Added Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         } else {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to add at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("Failed to add at the moment" . mysqli_error($connection));
         }
     }
@@ -274,8 +496,16 @@ function deleteCategory()
         $deleteQuery = "DELETE FROM category where cat_id = ('{$delete_id}')";
         $deleteSQL = mysqli_query($connection, $deleteQuery);
         if (!$deleteSQL) {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to delete at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("QUERY FAILED" . mysqli_error($connection));
         } else {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Deleted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
 
         }
     }
@@ -289,8 +519,16 @@ function deleteBrand()
         $deleteQuery = "DELETE FROM brand where brand_id = ('{$delete_id}')";
         $deleteSQL = mysqli_query($connection, $deleteQuery);
         if (!$deleteSQL) {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to delete at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("QUERY FAILED" . mysqli_error($connection));
         } else {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Deleted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
 
         }
     }
@@ -302,8 +540,16 @@ function deleteInstitute(){
         $deleteQuery = "DELETE FROM institutes where ins_id = ('{$delete_id}')";
         $deleteSQL = mysqli_query($connection, $deleteQuery);
         if (!$deleteSQL) {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to delete at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("QUERY FAILED" . mysqli_error($connection));
         } else {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Deleted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
 
         }
     }
@@ -316,12 +562,79 @@ function deleteSubCategory()
         $deleteQuery = "DELETE FROM sub_category where sub_cat_id = ('{$delete_id}')";
         $deleteSQL = mysqli_query($connection, $deleteQuery);
         if (!$deleteSQL) {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to delete at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
             die("QUERY FAILED" . mysqli_error($connection));
         } else {
 
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Deleted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
         }
     }
 }
-
-
+function deleteInventory(){
+    global $connection;
+    if(isset($_GET['delete'])){
+        $delete_id = $_GET['delete'];
+        $deleteQuery = "DELETE FROM assets where asset_id = ('{$delete_id}')";
+        $deleteSQL = mysqli_query($connection, $deleteQuery);
+        if(!$deleteSQL)  {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                <strong>Failed to delete at the moment.</strong>.
+                <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+                </div>";
+            die("QUERY FAILED" . mysqli_error($connection));
+        }else{
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Deleted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+       
+        }
+    }
+}
+function deleteUser(){
+    global $connection;
+    if (isset($_GET['delete'])) {
+        $delete_id = $_GET['delete'];
+        $deleteQuery = "DELETE FROM users where user_id = ('{$delete_id}')";
+        $deleteSQL = mysqli_query($connection, $deleteQuery);
+        if (!$deleteSQL) {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to delete at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+            die("QUERY FAILED" . mysqli_error($connection));
+        } else {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Deleted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
+    }
+}
+function deleteLab(){
+    global $connection;
+    if(isset($_GET['delete'])){
+        $delete_id = $_GET['delete'];
+        $deleteQuery = "DELETE FROM labs where lab_id = ('{$delete_id}')";
+        $deleteSQL = mysqli_query($connection, $deleteQuery);
+        if(!$deleteSQL)  {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to delete at the moment.</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+            die("QUERY FAILED" . mysqli_error($connection));
+        }else{
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Data Deleted Successfully!</strong>.
+            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
+    }
+}
 ?>

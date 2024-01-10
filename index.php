@@ -1,13 +1,3 @@
-<?php include "database/db.php"; ?>
-<?php
-if(isset($_GET['uid'])){
-    $id = $_GET['uid'];
-    $fullname= $_GET['fullname'];
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

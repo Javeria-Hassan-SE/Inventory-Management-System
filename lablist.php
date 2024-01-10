@@ -1,20 +1,4 @@
-<?php include "database/db.php"; ?>
-<?php
-if(isset($_GET['delete'])){
-    $delete_id = $_GET['delete'];
-    $deleteQuery = "DELETE FROM labs where lab_id = ('{$delete_id}')";
-    $deleteSQL = mysqli_query($connection, $deleteQuery);
-    if(!$deleteSQL)  {
-        die("QUERY FAILED" . mysqli_error($connection));
-    }else{
-   
-    }
-}
-
-
-?>
-
-
+<?php include "includes/functions.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,6 +48,7 @@ include("sidebar.php");
 <div class="page-title">
 <h4>Lab List</h4>
 <h6>Manage your labs</h6>
+<?php deleteLab();?>
 </div>
 <div class="page-btn">
 <a href="addlablist.php" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img">Add Lab</a>

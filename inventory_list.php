@@ -1,18 +1,5 @@
-<?php include "database/db.php"; ?>
-<?php
-if(isset($_GET['delete'])){
-    $delete_id = $_GET['delete'];
-    $deleteQuery = "DELETE FROM assets where asset_id = ('{$delete_id}')";
-    $deleteSQL = mysqli_query($connection, $deleteQuery);
-    if(!$deleteSQL)  {
-        die("QUERY FAILED" . mysqli_error($connection));
-    }else{
-   
-    }
-}
+<?php include("includes/functions.php"); ?>
 
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +46,7 @@ include("sidebar.php");
 <h4>Inventory List</h4>
 <h6>Manage your Inventory</h6>
 </div>
+<?php deleteInventory(); ?>
 <div class="page-btn">
 <a href="addinventory.php" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img" class="me-1">Add New Item</a>
 </div>

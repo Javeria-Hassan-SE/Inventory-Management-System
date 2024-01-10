@@ -7,9 +7,7 @@ while ($row = mysqli_fetch_assoc($select_all_users_query)) {
     $cat_name = $row['cat_name'];
     $cat_code = $row['cat_code'];
 }
-}
-?>
-
+}?>
 <!DOCTYPE html>
 <html lang="en">
 

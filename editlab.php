@@ -1,6 +1,5 @@
-<?php include "database/db.php"; ?>
-
-<?php
+<?php include "database/db.php"; 
+include "includes/functions.php";
 if(isset($_GET['update'])){
     $lab_id = $_GET['update'];
     $query = "SELECT * FROM labs where lab_id = '{$lab_id}'";
@@ -12,44 +11,7 @@ if(isset($_GET['update'])){
                    $lab_name= $row['lab_name'];
                    $capacity =  $row['capacity'];
                 }
-}
-if (isset($_POST['submit'])) {
-    $u_module = $_POST['module'];
-    $u_floor = $_POST['floor'];
-    $u_type = $_POST['type'];
-    $u_capacity = $_POST['capacity'];
-    $u_lab_name=$_POST['lab_name'];
-
-    $updated_on = date('d-m-y');
-    $updated_by = 1;
-
-    $module_code="";
-    if($u_module=="Module 01"){
-        $module_code='MD01';
-    }else if($u_module=="Module 02"){
-        $module_code='MD02';
-    }else if($u_module=="Module 03"){
-        $module_code='MD03';
-    }else if($u_module=="Module 04"){
-        $module_code='MD04';
-    }
-
-
-
-    $insertQuery = "UPDATE `labs` SET `module_code`='{$module_code}',`module_name`='{$u_module}',`floor`='{$u_floor}',`lab_type`='{$u_type}',
-    `lab_name`='{$u_lab_name}',`capacity`='{$u_capacity}',
-    `updated_by`='{$updated_by}',`updated_on`='{$updated_on}' WHERE `lab_id`= {$lab_id}";
-
-    $query = mysqli_query($connection, $insertQuery);
-    if ($query) {
-        header("Location: lablist.php");
-    } else {
-        die("Failed to update at the moment" . mysqli_error($connection));
-    }
-}
-
-?>
-
+}?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,10 +65,15 @@ if (isset($_POST['submit'])) {
                         <h6>Update Lab</h6>
                     </div>
                 </div>
+                <?php
+                updateLab();
+
+                ?>
 
                 <div class="card">
                     <div class="card-body">
                         <form action="" method="post">
+                            <input type="hidden" name="lab_id" id="lab_id" value="<?php echo $lab_id;  ?>">
                         <div class="row">
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
