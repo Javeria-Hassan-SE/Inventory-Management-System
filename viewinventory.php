@@ -1,5 +1,27 @@
 <?php
-include "includes/functions.php";?>
+include "includes/functions.php";
+if(isset($_GET['view'])){
+$asset_id = $_GET['view'];
+$query = "SELECT * FROM assets where asset_id='{$asset_id}'";
+$select_all_users_query = mysqli_query($connection, $query);
+while ($row = mysqli_fetch_assoc($select_all_users_query)) {
+    $serial_number = $row['serial_number'];
+    $item_name = $row['item_name'];
+    $cat_name= $row['cat_name'];
+    $internal_tag = $row['internal_tag'];
+    $qty = $row['qty'];
+    $lab_name = $row['lab_name'];
+    $subcategory = $row['sub_cat_name'];
+    $status = $row['status'];
+    $department = $row['dept_code'];
+    $type = $row['type'];
+    $specs = $row['specifications'];
+    $mac_address = $row['mac_address'];
+    $custodian = $row['custodian'];
+    $cost = $row['cost'];
+}
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +34,7 @@ include "includes/functions.php";?>
         content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
     <meta name="author" content="Inventory Management System">
     <meta name="robots" content="noindex, nofollow">
-    <title>RIET - Add Inventory</title>
+    <title>RIET - Edit Inventory</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo-hunar.png">
 
@@ -48,53 +70,51 @@ include "includes/functions.php";?>
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Add New Item</h4>
-                        <h6>Create new item</h6>
+                        <h4>View Item</h4>
+                        <h6>View Existing item</h6>
                     </div>
                 </div>
-                <?php
-                        addAsset();
-                ?>
-
+                
                 <form action="" method="post">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
+                            <input type="hidden" name="asset_id" id="asset_id" value="<?php echo $asset_id ?>">
                         <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Serial Number</label>
-                                    <input type="text" name="serial_number">
+                                    <input type="text" name="serial_number" value="<?php echo $serial_number ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Item Name</label>
-                                    <input type="text" name="item_name">
+                                    <input type="text" name="item_name" value="<?php echo $item_name ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Internal Tag</label>
-                                    <input type="text" name="internal_tag">
+                                    <input type="text" name="internal_tag" value="<?php echo $internal_tag ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mac Address</label>
-                                    <input type="text" name="mac_address">
+                                    <input type="text" name="mac_address" value="<?php echo $mac_address ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Quantity</label>
-                                    <input type="number" class="form-control" name="qty">
+                                    <input type="number" class="form-control" name="qty" value="<?php echo $qty ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Sub Category</label>
                                     <select class="select" id="subcategory" name="subcategory" onchange="getCategories(this.value)">
-                                    
+                                        <option value="<?php echo $subcategory?>"><?php echo $subcategory ?></option>
                                         <?php
                                         $query = "SELECT sub_cat_name FROM sub_category";
                                         $select_all_users_query = mysqli_query($connection, $query);
@@ -124,7 +144,7 @@ include "includes/functions.php";?>
                                 <div class="form-group">
                                     <label>Lab</label>
                                     <select class="select" name="lab_name">
-                                        <option value="">Choose Lab</option>
+                                        <option value="<?php echo $lab_name ?>"><?php echo $lab_name ?></option>
                                         <?php
                                         $query = "SELECT lab_name FROM labs";
                                         $select_all_users_query = mysqli_query($connection, $query);
@@ -142,7 +162,7 @@ include "includes/functions.php";?>
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="select" name="status">
-                                        <option value="">Choose Status</option>
+                                        <option value="<?php echo $status?>"><?php echo $status ?></option>
                                         <option value="Working">Working</option>
                                         <option value="Minor Faulty">Minor Faulty</option>
                                         <option value="Major Faulty">Major Faulty</option>
@@ -154,7 +174,7 @@ include "includes/functions.php";?>
                                 <div class="form-group">
                                     <label>Department</label>
                                     <select class="select" name="department">
-                                        <option value="">Choose Department</option>
+                                        <option value="<?php echo $department ?>"><?php echo $department ?></option>
                                         <?php
                                         $query = "SELECT campus_code FROM institutes";
                                         $select_all_users_query = mysqli_query($connection, $query);
@@ -174,26 +194,26 @@ include "includes/functions.php";?>
                            <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Acquisition Date</label>
-                                    <input type="date" class="form-control" name="acq_date">
+                                    <input type="date" class="form-control" name="acq_date" value="<?php echo $acq_date ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Custodian</label>
-                                    <input type="text" class="form-control" name="custodian">
+                                    <input type="text" class="form-control" name="custodian" value="<?php echo $custodian ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Cost</label>
-                                    <input type="text" class="form-control" name="cost">
+                                    <input type="text" class="form-control" name="cost" value="<?php echo $cost ?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Type</label>
                                     <select class="select" name="type">
-                                        <option value="">Choose Type</option>
+                                        <option value="<?php echo $type ?>"><?php echo $type ?></option>
                                         <option value="Borrowed">Borrowed</option>
                                         <option value="Owned">Owned</option>
                                     </select>
@@ -202,15 +222,15 @@ include "includes/functions.php";?>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Specifications</label>
-                                    <textarea class="form-control" name="specs"></textarea>
+                                    <textarea class="form-control" name="specs" value="<?php echo $specs ?>"></textarea>
                                 </div>
                             </div>
                            
                            
-                            <div class="col-lg-12">
-                                <input type="submit" name="submit" value="Submit" class="btn btn-submit me-2">
+                            <!-- <div class="col-lg-12">
+                                <input type="submit" name="update" value="Update" class="btn btn-submit me-2">
                                 <a href="#" class="btn btn-cancel">Cancel</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="Inventory Management System">
     <meta name="keywords"
         content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
-    <meta name="author" content="RIET Template">
+    <meta name="author" content="Inventory Management System">
     <meta name="robots" content="noindex, nofollow">
     <title>RIET-Login</title>
 

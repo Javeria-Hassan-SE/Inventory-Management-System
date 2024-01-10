@@ -3,12 +3,11 @@ include "database/db.php";
 
 if (isset($_POST['category'])) {
     $selectedCategory = $_POST['category'];
-    $query = "SELECT cat_name FROM sub_category where sub_cat_name = '{$selectedCategory}'";
+    $query = "SELECT cat_name FROM sub_category WHERE sub_cat_name = '{$selectedCategory}'";
     $select_all_users_query = mysqli_query($connection, $query);
 
     while ($row = mysqli_fetch_assoc($select_all_users_query)) {
         $cat_name  = $row['cat_name'];
-
         echo "<option value='$cat_name'>$cat_name</option>";
     }
 }
@@ -30,6 +29,44 @@ function insertBrand(){
             die("Failed to add at the moment" . mysqli_error($connection));
         }
     }
+}
+function addAsset(){
+    if (isset($_POST['submit'])) {
+        $serial_number = $_POST['serial_number'];
+        $item_name = $_POST['item_name'];
+        $internal_tag = $_POST['internal_tag'];
+        $qty = $_POST['qty'];
+        $subcategory = $_POST['subcategory'];
+        $lab_name = $_POST['lab_name'];
+        $status = $_POST['status'];
+        $department = $_POST['department'];
+        $acq_date = $_POST['acq_date'];
+        $custodian = $_POST['custodian'];
+        $cost = $_POST['cost'];
+        $type = $_POST['type'];
+        $specs = $_POST['specs'];
+        $mac_address = $_POST['mac_address'];
+
+
+        global $connection;
+        $added_on = date('d-m-y');
+        $added_by = 1;
+
+
+        $insertQuery = "INSERT INTO `assets`(`serial_number`, `item_name`,`mac_address`, `internal_tag`, `qty`, `sub_cat_name`,
+         `lab_name`, `status`, `dept_code`, `acq_date`, `custodian`, `cost`, `type`, `specifications`, 
+         `added_on`, `added_by`) VALUES ('{$serial_number}','{$item_name}','{$mac_address}','{$internal_tag}','{$qty}','{$subcategory}',
+         '{$lab_name}','{$status}','{$department}','{$acq_date}','{$custodian}','{$cost}','{$type}',
+         '{$specs}','{$added_on}','{$added_by}')";
+
+        $query = mysqli_query($connection, $insertQuery);
+        if ($query) {
+            header("Location: inventorylist.php");
+        } else {
+            die("Failed to add at the moment" . mysqli_error($connection));
+        }
+    }
+
 }
 function insertInstitute(){
     if (isset($_POST['submit'])) {
@@ -74,6 +111,47 @@ function insertCategory()
         }
     }
 }
+
+function updateAsset(){
+    if (isset($_POST['update'])) {
+        $asset_id = $_POST['asset_id'];
+        $serial_number = $_POST['serial_number'];
+        $item_name = $_POST['item_name'];
+        $internal_tag = $_POST['internal_tag'];
+        $qty = $_POST['qty'];
+        $subcategory = $_POST['subcategory'];
+        $lab_name = $_POST['lab_name'];
+        $status = $_POST['status'];
+        $department = $_POST['department'];
+        $acq_date = $_POST['acq_date'];
+        $custodian = $_POST['custodian'];
+        $cost = $_POST['cost'];
+        $type = $_POST['type'];
+        $specs = $_POST['specs'];
+        $mac_address = $_POST['mac_address'];
+
+
+        global $connection;
+        $updated_on = date('d-m-y');
+        $updated_by = 1;
+
+
+        $insertQuery = "UPDATE `assets` SET `serial_number`='{$serial_number}',`item_name`='{$item_name}',
+        `internal_tag`='{$internal_tag}',`mac_address`='{$mac_address}',`qty`='{$qty}',
+        `sub_cat_name`='{$subcategory}',`lab_name`='{$lab_name}',`status`='{$status}',
+        `dept_code`='{$department}',`acq_date`='{$acq_date}',`custodian`='{$custodian}',
+        `cost`='{$cost}',`type`='{$type}',`specifications`='{$specs}',
+        `updated_on`='{$updated_on}',`updated_by`='{$updated_by}' WHERE `asset_id`={$asset_id}";
+
+        $query = mysqli_query($connection, $insertQuery);
+        if ($query) {
+            header("Location: inventorylist.php");
+        } else {
+            die("Failed to update at the moment" . mysqli_error($connection));
+        }
+    }
+
+}
 function updateBrand(){
     if (isset($_POST['update'])) {
         $brand_id = $_POST['brand_id'];
@@ -94,6 +172,30 @@ function updateBrand(){
             die("Failed to update at the moment" . mysqli_error($connection));
         }
     }
+}
+
+function updateInstitute(){
+    if (isset($_POST['update'])) {
+        $ins_id = $_POST['ins_id'];
+        $ins_name = $_POST['institute_name'];
+        $campus_code = $_POST['campus_code'];
+        $dept_code = $_POST['dept_code'];
+        global $connection;
+        $updated_on = date('d-m-y');
+        $updated_by = 1;
+
+        $updateQuery = "UPDATE `institutes` SET `institute_name`='{$ins_name}',
+    `campus_code`='{$campus_code}',`dept_code`='{$dept_code}',`updated_on`='{$updated_on}',
+    `updated_by`='{$updated_by}' WHERE ins_id = {$ins_id}";
+
+        $query = mysqli_query($connection, $updateQuery);
+        if ($query) {
+            header("Location: institute.php");
+        } else {
+            die("Failed to update at the moment" . mysqli_error($connection));
+        }
+    }
+
 }
 function updateCategory()
 {

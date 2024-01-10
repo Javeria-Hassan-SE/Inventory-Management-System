@@ -22,10 +22,9 @@
 <li><a href="brand.php">Brand</a></li>
 <li><a href="add_inventory.php">Add Inventory</a></li>
 <li><a href="inventory_list.php">View Inventory</a></li>
-<li><a href="addfixedasset.php">Add Fixed Asset</a></li>
-<li><a href="fixedassetlist.php">Fixed Asset List</a></li>
-<li><a href="consumablelist.php">Consumable List</a></li>
+<li><a href="fixedassetlist.php">View Fixed Asset List</a></li>
 <li><a href="addconsumable.php">Add Consumable List</a></li>
+<li><a href="consumablelist.php">View Consumable List</a></li>
 <li><a href="barcode.php">Print Barcode</a></li>
 </ul>
 </li>
