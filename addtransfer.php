@@ -1,3 +1,4 @@
+<?php include("includes/functions.php");?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,34 +66,39 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>From</label>
-                                    <select class="select">
-                                        <option>Choose</option>
-                                        <option>Store 1</option>
-                                        <option>Store 2</option>
+                                    <select class="select" name="from_lab">
+                                    <?php fetchLab();?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>To</label>
-                                    <select class="select">
-                                        <option>Choose</option>
-                                        <option>Store 1</option>
-                                        <option>Store 2</option>
+                                    <select class="select" name="to_lab">
+                                    <?php fetchLab();?>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-12 col-sm-6 col-12">
+                            <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                    <label>Choose Category</label>
+                                    <select class="select" id="category" name="category"  onchange="getItem(this.value)">
+                                        <?php fetchCategory(); ?>
+                                    </select>
+                                </div>
+                                </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Product Name</label>
-                                    <div class="input-groupicon">
-                                        <input type="text" placeholder="Scan/Search Product by code and select...">
-                                        <div class="addonset">
-                                            <img src="assets/img/icons/scanners.svg" alt="img">
-                                        </div>
-                                    </div>
+                                    <select class="select" id="item" name="item">
+                                        <option value="">First Select Category</option>
+                                     
+                                    </select>
                                 </div>
                             </div>
+                            </div>
+                           
                         </div>
                         <div class="row">
                             <div class="table-responsive ">
@@ -213,6 +219,7 @@
     </div>
 
 
+    <script src="assets/js/index.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
     <script src="assets/js/feather.min.js"></script>

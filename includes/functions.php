@@ -9,6 +9,26 @@
         echo "<option value='$cat_name'>$cat_name</option>";
     }
 }
+function fetchSubCategory(){
+    global $connection;
+    $query = "SELECT sub_cat_name FROM sub_category";
+    $select_all_users_query = mysqli_query($connection, $query);
+
+    while ($row = mysqli_fetch_assoc($select_all_users_query)) {
+        $sub_cat_name  = $row['sub_cat_name'];
+        echo "<option value='$sub_cat_name'>$sub_cat_name</option>";
+    }
+}
+function fetchCategory(){
+    global $connection;
+    $query = "SELECT cat_name FROM category";
+    $select_all_users_query = mysqli_query($connection, $query);
+
+    while ($row = mysqli_fetch_assoc($select_all_users_query)) {
+        $cat_name  = $row['cat_name'];
+        echo "<option value='$cat_name'>$cat_name</option>";
+    }
+}
 function adduser(){
     global $connection;
     if (isset($_POST['submit'])) {
@@ -37,12 +57,13 @@ function adduser(){
     
         $query = mysqli_query($connection, $insertQuery);
         if ($query) {
-            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-            <strong>Data Added Successfully!</strong>.
-            <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
-            </div>";
-            // header("Location: userlists.php");
-            // exit();
+            // echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            // <strong>Data Added Successfully!</strong>.
+            // <button type='button' class='btn-close'- data-bs-dismiss='alert' aria-label='Close'></button>
+            // </div>";
+            // echo "<a href='userlists.php'>Click here</a>";
+            header("Location: userlists.php", true);
+            exit();
             
         } else {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
@@ -646,5 +667,18 @@ function deleteLab(){
             </div>";
         }
     }
+}
+
+function fetchLab(){
+    global $connection;
+    $query = "SELECT lab_name FROM labs";
+    $select_all_users_query = mysqli_query($connection, $query);
+
+    while ($row = mysqli_fetch_assoc($select_all_users_query)) {
+        $lab_name = $row['lab_name'];
+
+        echo "<option value $lab_name> $lab_name</option>";
+    }
+
 }
 ?>
