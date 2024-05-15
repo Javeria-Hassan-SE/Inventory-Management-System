@@ -29,6 +29,8 @@ function fetchCategory(){
         echo "<option value='$cat_name'>$cat_name</option>";
     }
 }
+
+// ================insert data===============
 function adduser(){
     global $connection;
     if (isset($_POST['submit'])) {
@@ -241,7 +243,7 @@ function insertCategory()
         }
     }
 }
-
+// ============Update =================
 function updateLab(){
     if (isset($_POST['submit'])) {
         global $connection;
@@ -497,8 +499,6 @@ function insertSubCategory()
         global $connection;
         $added_on = date('d-m-y');
         $added_by = 1;
-
-
 
         $insertQuery = "INSERT INTO `sub_category`( `sub_cat_name`, `cat_name`, `added_on`, `added_by`) 
     VALUES ('{$sub_cat}','{$cat_name}','{$added_on}','{$added_by}')";

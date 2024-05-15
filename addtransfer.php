@@ -1,4 +1,4 @@
-<?php include("includes/functions.php");?>
+<?php include("includes/functions.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="Inventory Management System">
-    <meta name="keywords"
-        content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
     <meta name="author" content="Inventory Management System">
     <meta name="robots" content="noindex, nofollow">
     <title>RIET - Transfer</title>
@@ -52,7 +51,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Date </label>
                                     <div class="input-groupicon">
@@ -66,147 +65,43 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>From</label>
-                                    <select class="select" name="from_lab">
-                                    <?php fetchLab();?>
+                                    <select class="select" id="from_lab" name="from_lab" onchange="filterToLab()">
+                                        <?php fetchLab(); ?>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>To</label>
-                                    <select class="select" name="to_lab">
-                                    <?php fetchLab();?>
+                                    <select class="select" id="to_lab" name="to_lab">
+                                        <?php fetchLab(); ?>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="row">
-                            <div class="col-lg-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                    <label>Choose Category</label>
-                                    <select class="select" id="category" name="category"  onchange="getItem(this.value)">
-                                        <?php fetchCategory(); ?>
-                                    </select>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Choose Category</label>
+                                        <select class="select" id="category" name="category" onchange="getItem(this.value)">
+                                            <?php fetchCategory(); ?>
+                                        </select>
+                                    </div>
                                 </div>
-                                </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Product Name</label>
-                                    <select class="select" id="item" name="item">
-                                        <option value="">First Select Category</option>
-                                     
-                                    </select>
-                                </div>
-                            </div>
-                            </div>
-                           
-                        </div>
-                        <div class="row">
-                            <div class="table-responsive ">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Product Name</th>
-                                            <th>QTY</th>
-                                            <th>Price</th>
-                                            <th>Stock </th>
-                                            <th>Discount</th>
-                                            <th>Tax </th>
-                                            <th>Total Cost ($)</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="bor-b1">
-                                            <td class="productimgname">
-                                                <a class="product-img">
-                                                    <img src="assets/img/product/product7.jpg" alt="product">
-                                                </a>
-                                                <a href="javascript:void(0);">Apple Earpods</a>
-                                            </td>
-                                            <td>
-                                                <div class="input-group form-group mb-0">
-                                                    <a class="scanner-set input-group-text">
-                                                        <img src="assets/img/icons/plus1.svg" alt="img">
-                                                    </a>
-                                                    <input type="text" value="1" class="calc-no">
-                                                    <a class="scanner-set input-group-text">
-                                                        <img src="assets/img/icons/minus.svg" alt="img">
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>1500.00</td>
-                                            <td>50.00</td>
-                                            <td>0.00</td>
-                                            <td>0.00</td>
-                                            <td>1500.00</td>
-                                            <td>
-                                                <a href="javascript:void(0);" class="delete-set"><img
-                                                        src="assets/img/icons/delete.svg" alt="svg"></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 float-md-right">
-                                <div class="total-order">
-                                    <ul>
-                                        <li>
-                                            <h4>Order Tax</h4>
-                                            <h5>$ 0.00 (0.00%)</h5>
-                                        </li>
-                                        <li>
-                                            <h4>Discount </h4>
-                                            <h5>$ 0.00</h5>
-                                        </li>
-                                        <li>
-                                            <h4>Shipping</h4>
-                                            <h5>$ 0.00</h5>
-                                        </li>
-                                        <li class="total">
-                                            <h4>Grand Total</h4>
-                                            <h5>$ 0.00</h5>
-                                        </li>
-                                    </ul>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Product Name</label>
+                                        <select class="select" id="item" name="item">
+                                            <option value="">First Select Category</option>
+
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Order Tax</label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Discount</label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Shipping</label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="select">
-                                        <option>Choose Status</option>
-                                        <option>Completed</option>
-                                        <option>Inprogress</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea class="form-control"></textarea>
-                                </div>
-                            </div>
+
+
+
                             <div class="col-lg-12">
                                 <a href="javascript:void(0);" class="btn btn-submit me-2">Submit</a>
                                 <a href="transferlist.html" class="btn btn-cancel">Cancel</a>
@@ -218,7 +113,27 @@
         </div>
     </div>
 
+    <script>
+        function filterToLab() {
+            var fromLab = document.getElementById('from_lab');
+            var toLab = document.getElementById('to_lab');
 
+            // Clear previous disabled options
+            var options = toLab.options;
+            for (var i = 0; i < options.length; i++) {
+                options[i].disabled = false;
+            }
+
+            // Disable all occurrences of the selected option value in 'to_lab'
+            var selectedValue = fromLab.value;
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value === selectedValue) {
+                    options[i].disabled = true;
+                }
+                break;
+            }
+        }
+    </script>
     <script src="assets/js/index.js"></script>
     <script src="assets/js/jquery-3.6.0.min.js"></script>
 
@@ -240,6 +155,7 @@
     <script src="assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
     <script src="assets/js/script.js"></script>
+
 </body>
 
 </html>
